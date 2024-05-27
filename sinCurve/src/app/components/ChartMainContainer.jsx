@@ -31,7 +31,7 @@ function ChartMainContainer() {
     e => {
       console.log('Received data from IOS : ' + e.detail.data)
       setDataFromIOS(e.detail.data)
-      setDataFromIOS(e.detail.date)
+      setDateFromIOS(e.detail.date)
     },
     [setDataFromIOS],
   )
