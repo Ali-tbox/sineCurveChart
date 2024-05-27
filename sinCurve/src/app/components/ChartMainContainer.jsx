@@ -17,7 +17,6 @@ function ChartMainContainer() {
   //   console.log("sendMessageToNative", data);
   // };
   const [dataFromIOS, setDataFromIOS] = useState('')
-  const [dateFromIOS, setDateFromIOS] = useState('')
 
   useEffect(() => {
     // Adding event for IOS app
@@ -31,9 +30,8 @@ function ChartMainContainer() {
     e => {
       console.log('Received data from IOS : ' + e.detail.data)
       setDataFromIOS(e.detail.data)
-      setDataFromIOS(e.detail.date)
     },
-    [setDataFromIOS, setDateFromIOS],
+    [setDataFromIOS],
   )
 
   const onClickHandler = name => {
@@ -62,7 +60,6 @@ function ChartMainContainer() {
 
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'center'} overflow={'hidden'}>
-      <Box>{`Date from IOS :${dateFromIOS}`}</Box>
       <SineCurvedCharts chartData={dataFromIOS} handleItemClick={onClickHandler} />
     </Box>
   )
