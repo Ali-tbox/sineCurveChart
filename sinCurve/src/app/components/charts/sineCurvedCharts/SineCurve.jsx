@@ -7,6 +7,7 @@ import assets from '../../../assets/assests'
 import Icon from '../../form/Icon'
 import SymmentryLabel from '../SymmentryLabel'
 import SymmentryRoundLabel from '../SymmentryRoundLabel'
+import moment from 'moment'
 
 const badgeValue = {
   left: 'Left circle',
@@ -20,7 +21,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function SineCurve({ color, circle = 'Left circle', chartData, data, type }) {
+function SineCurve({ date, color, circle = 'Left circle', chartData, data, type }) {
   function getColorByRange(number) {
     if (type === 'front') {
       if (number >= 0 && number <= 11) {
@@ -194,7 +195,7 @@ function SineCurve({ color, circle = 'Left circle', chartData, data, type }) {
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='7px' h='7px' borderRadius={'full'} bg={colors.purple}></Box>
           <Text fontFamily={'Noto Sans'} fontSize={'9px'} color={colors.textcolor}>
-            1 Dec 2023
+            {moment(date).format('DD MMM YYYY')}
           </Text>
         </Box>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>

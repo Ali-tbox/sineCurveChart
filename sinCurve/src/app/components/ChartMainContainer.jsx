@@ -62,8 +62,7 @@ function ChartMainContainer() {
 
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'center'} overflow={'hidden'}>
-      <Box>{`Date from IOS: ${dateFromIOS}`}</Box>
-      <SineCurvedCharts chartData={dataFromIOS} handleItemClick={onClickHandler} />
+      <SineCurvedCharts date={dateFromIOS} chartData={dataFromIOS} handleItemClick={onClickHandler} />
     </Box>
   )
 }
