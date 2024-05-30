@@ -22,7 +22,7 @@ function ChartMainContainer() {
 
   useEffect(() => {
     // Adding event for IOS app
-
+    onClickHandler('Sine curve loaded')
     window.addEventListener('iosEvent', iosEventHandler)
 
     return () => window.removeEventListener('iosEvent', iosEventHandler)
