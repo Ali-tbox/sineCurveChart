@@ -4,9 +4,9 @@ import { Box, Text } from '@chakra-ui/react'
 import colors from '../../../config/colors'
 import Icon from '../../form/Icon'
 import assets from '../../../assets/assests'
-import chartData from '../chartData'
+// import chartData from '../chartData'
 
-function SineCurvedCharts({ baseline, date }) {
+function SineCurvedCharts({ chartData, baseline, date }) {
   // console.log("SineCurvedCh ", chartData?.sineCurve?.rightFore);
   return (
     <Box w='100%'>
