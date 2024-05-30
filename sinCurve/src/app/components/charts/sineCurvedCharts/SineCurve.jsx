@@ -21,7 +21,7 @@ const badgeColor = {
   straight: colors.mustard,
 }
 
-function SineCurve({ date, color, circle = 'Left circle', chartData, data, type }) {
+function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, data, type }) {
   function getColorByRange(number) {
     if (type === 'front') {
       if (number >= 0 && number <= 11) {
@@ -178,19 +178,9 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, data, type 
               Impact
             </Text>
           </Box>
-          <CurvedLineChart color={color} selectedItem={selectedItem} selectedStrideItem={selectedStrideItem} data={data} />
+          <CurvedLineChart baseline={baseline} color={color} selectedItem={selectedItem} selectedStrideItem={selectedStrideItem} data={data} />
         </Box>
       </Box>
-      {/* <Box mt='12px' display={'flex'} gap={'20px'}>
-        {chartData?.confidence?.map((item, index) => item?.trottype !== 'allfootage' && <SymmentryRoundLabel key={index} text={badgeValue[item?.trottype]} color={badgeColor[item?.trottype]} />)}
-        <Box display={'flex'} gap={'4px'} alignItems={'center'}>
-          <Icon imageWidth={'14px'} imageHeight={'2px'} image={assets.icons.Line} />
-          <Text fontFamily={'Noto Sans'} fontSize={'11px'} textAlign={'center'} lineHeight={'16px'} color={colors.faintblack}>
-            Mean
-          </Text>
-        </Box>
-      </Box>
-      <Divider mt='8px' /> */}
       <Box display={'flex'} gap={'8px'} mt='8px'>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='7px' h='7px' borderRadius={'full'} bg={colors.purple}></Box>

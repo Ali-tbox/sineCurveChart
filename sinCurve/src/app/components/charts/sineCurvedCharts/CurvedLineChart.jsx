@@ -1,9 +1,10 @@
 import React, { useEffect, useRef } from 'react'
 import Chart from 'chart.js/auto'
 import colors from '../../../config/colors'
-function CurvedLineChart({ color, selectedStrideItem, selectedItem, straightData, rightData, leftData, data }) {
+function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, straightData, rightData, leftData, data }) {
   const updatedData = data?.map(item => item?.stride)
-  console.log('color', color)
+  const baselineUpdatedData = baseline?.map(item => item?.stride)
+
   // const allLeft = selectedItem === 'All data' || selectedItem === 'Left circle' ? leftData?.map(item => item?.stride) : []
   // const allRigth = selectedItem === 'All data' || selectedItem === 'Right circle' ? rightData?.map(item => item?.stride) : []
   // const allStraight = selectedItem === 'All data' || selectedItem === 'Straight line' ? straightData?.map(item => item?.stride) : []
@@ -12,6 +13,7 @@ function CurvedLineChart({ color, selectedStrideItem, selectedItem, straightData
   // const limitedAllStriaght = selectedStrideItem === 'Max 10' ? allStraight.slice(0, 10) : selectedStrideItem === 'Max 5' ? allStraight.slice(0, 5) : allStraight
 
   const medianObject = data?.find(obj => obj.isMedian === true)
+  const baselineMedianObject = baseline?.find(obj => obj.isMedian === true)
   // const medianRightObject = rightData?.find(obj => obj.isMedian === true)
   // const medianStraightObject = straightData?.find(obj => obj.isMedian === true)
   // console.log('dataataadadadada', straightData)
@@ -19,16 +21,26 @@ function CurvedLineChart({ color, selectedStrideItem, selectedItem, straightData
   const datasets = updatedData?.map((data, index) => ({
     label: `Dataset ${index + 1}`,
     data: data,
-    borderColor: color,
+    borderColor: medianObject?.stride === data ? colors.purple : 'rgba(45, 156, 219, 0.5)',
     lineTension: 0.4,
     borderCurve: 0.5,
-    borderWidth: medianObject?.stride === data ? 5 : 2,
-    borderDash: medianObject?.stride === data ? [10, 10] : [0, 0],
+    borderWidth: medianObject?.stride === data ? 3 : 1,
+    // borderDash: medianObject?.stride === data ? [10, 10] : [0, 0],
     borderCapStyle: 'round',
     fill: false,
     pointStyle: false,
   }))
-  // console.log('dataataadadadada123', datasets)
+  const baselineDatasets = baselineUpdatedData?.map((data, index) => ({
+    label: `Dataset ${index + 1}`,
+    data: data,
+    borderColor: baselineMedianObject?.stride === data ? colors.faintgreen : 'rgba(45, 156, 219, 0.5)',
+    lineTension: 0.4,
+    borderCurve: 0.5,
+    borderWidth: baselineMedianObject?.stride === data ? 3 : 1,
+    borderCapStyle: 'round',
+    fill: false,
+    pointStyle: false,
+  }))
 
   const chartContainer = useRef(null)
   let myChart = null
@@ -45,6 +57,7 @@ function CurvedLineChart({ color, selectedStrideItem, selectedItem, straightData
           labels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100],
           datasets: [
             ...(datasets ? datasets : []),
+            ...(baselineDatasets ? baselineDatasets : []),
             {
               label: 'Dataset 1',
 
