@@ -1,6 +1,14 @@
 import React, { useEffect, useRef } from 'react'
 import Chart from 'chart.js/auto'
 import colors from '../../../config/colors'
+
+function generateZeroArray(length) {
+  const zeroArray = []
+  for (let i = 0; i < length; i++) {
+    zeroArray.push(0)
+  }
+  return zeroArray
+}
 function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, straightData, rightData, leftData, data }) {
   const updatedData = data?.map(item => item?.stride)
   const baselineUpdatedData = baseline?.map(item => item?.stride)
@@ -44,7 +52,30 @@ function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, st
 
   const chartContainer = useRef(null)
   let myChart = null
-  console.log('chartContainer', datasets)
+  function getMaxLengthArray(data) {
+    const maxObj = data?.reduce(
+      (maxObj, arr) => {
+        const length = arr.stride ? arr.stride.length : 0
+        if (length > maxObj.maxLength) {
+          maxObj.maxLength = length
+          maxObj.maxLengthArray = arr.stride
+        }
+        return maxObj
+      },
+      { maxLength: 0, maxLengthArray: [] },
+    )
+
+    return maxObj?.maxLengthArray
+  }
+
+  // Example usage:
+  const maxDataLengthArray = getMaxLengthArray(data) === undefined ? [] : getMaxLengthArray(data)
+  const maxLengthArray = getMaxLengthArray(baseline) === undefined ? [] : getMaxLengthArray(baseline)
+  const labelsArray = maxDataLengthArray?.length > maxLengthArray?.length ? maxDataLengthArray : maxLengthArray
+
+  console.log('Array with the maximum length:', maxDataLengthArray?.length, maxLengthArray?.length)
+
+  // console.log('chartContainer', maxLength)
   useEffect(() => {
     if (chartContainer && chartContainer.current) {
       if (myChart) {
@@ -54,14 +85,14 @@ function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, st
       myChart = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100],
+          labels: labelsArray,
           datasets: [
             ...(datasets ? datasets : []),
             ...(baselineDatasets ? baselineDatasets : []),
             {
               label: 'Dataset 1',
 
-              data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+              data: generateZeroArray(labelsArray?.length),
               borderColor: '#CCCCCC',
               lineTension: 0.4,
               borderWidth: 1.5,
