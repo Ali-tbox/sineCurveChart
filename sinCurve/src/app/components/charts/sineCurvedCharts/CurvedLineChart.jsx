@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import Chart from 'chart.js/auto'
 import colors from '../../../config/colors'
+import { drawLineWithCircularPoint, getColorByRange } from '../../../utils/helperFunc'
 
 function generateZeroArray(length) {
   const zeroArray = []
@@ -9,7 +10,7 @@ function generateZeroArray(length) {
   }
   return zeroArray
 }
-function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, straightData, rightData, leftData, data }) {
+function CurvedLineChart({ baseline, color, type = 'front', selectedStrideItem, selectedItem, straightData, rightData, leftData, data }) {
   const updatedData = data?.map(item => item?.stride)
   const baselineUpdatedData = baseline?.map(item => item?.stride)
 
@@ -68,6 +69,24 @@ function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, st
     return maxObj?.maxLengthArray
   }
 
+  function findObjectByY(medianObject, yValue) {
+    const index = medianObject?.findIndex(obj => obj.y === yValue)
+    if (index !== -1) {
+      return { obj: medianObject?.[index], index }
+    } else {
+      return null // If no object with the matching y value is found
+    }
+  }
+
+  const minDiff = medianObject?.rulers?.find(item => item?.rulerType === 'minDiff')
+  const maxDiff = medianObject?.rulers?.find(item => item?.rulerType === 'maxDiff')
+  const startPoint = findObjectByY(medianObject?.stride, minDiff?.yStart)
+  const endPoint = findObjectByY(medianObject?.stride, minDiff?.yEnd)
+  const pushoffStartPoint = findObjectByY(medianObject?.stride, maxDiff?.yStart)
+  const pushoffEndPoint = findObjectByY(medianObject?.stride, maxDiff?.yEnd)
+  const deficitColor = getColorByRange(type, parseInt(minDiff?.annotation))
+  const pushOffDeficitColor = getColorByRange(type, parseInt(maxDiff?.annotation))
+
   // Example usage:
   const maxDataLengthArray = getMaxLengthArray(data) === undefined ? [] : getMaxLengthArray(data)
   const maxLengthArray = getMaxLengthArray(baseline) === undefined ? [] : getMaxLengthArray(baseline)
@@ -82,6 +101,21 @@ function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, st
         myChart.destroy()
       }
       const ctx = chartContainer.current.getContext('2d')
+      const plugin = {
+        id: 'custom_datalabel',
+        afterDatasetsDraw: (chart, args, options) => {
+          const { ctx, scales } = chart
+
+          // Provide the coordinates for the start and end points
+
+          if ((type === 'front' && parseInt(minDiff?.annotation) > 12) || (type === 'hind' && parseInt(minDiff?.annotation) > 6)) {
+            drawLineWithCircularPoint(ctx, scales, startPoint, endPoint, deficitColor, minDiff?.annotation, 'min')
+          }
+          if ((type === 'front' && parseInt(maxDiff?.annotation) > 12) || (type === 'hind' && parseInt(maxDiff?.annotation) > 6)) {
+            drawLineWithCircularPoint(ctx, scales, pushoffStartPoint, pushoffEndPoint, pushOffDeficitColor, maxDiff?.annotation, 'max')
+          }
+        },
+      }
       myChart = new Chart(ctx, {
         type: 'line',
         data: {
@@ -141,6 +175,7 @@ function CurvedLineChart({ baseline, color, selectedStrideItem, selectedItem, st
             },
           },
         },
+        plugins: [plugin],
       })
     }
     return () => {

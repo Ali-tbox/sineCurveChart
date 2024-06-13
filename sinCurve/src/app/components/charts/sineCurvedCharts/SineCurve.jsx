@@ -156,8 +156,8 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
         </Box>
       )}
       <Box h={'fit-content'} display={'flex'} gap='6px'>
-        <Icon imageHeight={'11px'} imageWidth={'11px'} image={type === 'front' ? assets.icons.trottingHorse : assets.icons.trottingHorse1} />
-        <Text lineHeight={'normal'} fontFamily={'Nunito'} fontWeight={700} fontSize={'11px'} color={colors.textcolor}>
+        <Icon imageHeight={type === 'front' ? '6px' : '7.5px'} imageWidth={'8px'} image={type === 'front' ? assets.icons.trottingHorse : assets.icons.trottingHorse1} />
+        <Text lineHeight={'normal'} fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
           {type === 'front' ? 'Front' : 'Hind'}
         </Text>
       </Box>
