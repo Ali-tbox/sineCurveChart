@@ -144,21 +144,11 @@ function drawLineWithCircularPoint(ctx, scales, startPoint, endPoint, color, ann
 
   ctx.fillStyle = color // Set fill color
   ctx.fill() // Fill the circle
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.5)' // Shadow color
-  ctx.shadowBlur = 5 // Blur radius
-  ctx.shadowOffsetX = 2 // X offset
-  ctx.shadowOffsetY = 2 // Y offset
   ctx.lineWidth = 1
   // Set border color and draw the border
   ctx.strokeStyle = 'white' // Set border color
   ctx.stroke() // Draw the border
 
-  // Reset shadow properties
-  ctx.shadowColor = 'transparent' // Reset shadow color
-  ctx.shadowBlur = 0 // Reset blur radius
-  ctx.shadowOffsetX = 0 // Reset X offset
-  ctx.shadowOffsetY = 0 // Reset Y offset
-  // ctx.restore()
   // Draw circular point at the end of the second line
   const endPointRadius = 3 // Radius for the circular point
   ctx.beginPath()
@@ -170,31 +160,10 @@ function drawLineWithCircularPoint(ctx, scales, startPoint, endPoint, color, ann
   }
   ctx.fillStyle = color // Set fill color
   ctx.fill() // Fill the circle
-  ctx.shadowColor = 'rgba(0, 0, 0, 0.5)' // Shadow color
-  ctx.shadowBlur = 5 // Blur radius
-  ctx.shadowOffsetX = 2 // X offset
-  ctx.shadowOffsetY = 2 // Y offset
   ctx.lineWidth = 1
   // Set border color and draw the border
   ctx.strokeStyle = 'white' // Set border color
   ctx.stroke() // Draw the border
-
-  // Reset shadow properties
-  ctx.shadowColor = 'transparent' // Reset shadow color
-  ctx.shadowBlur = 0 // Reset blur radius
-  ctx.shadowOffsetX = 0 // Reset X offset
-  ctx.shadowOffsetY = 0 // Reset Y offset
-  // ctx.restore()
-  // Draw the circular point at the start
-  // const radius = 10
-  // ctx.beginPath()
-  // ctx.arc(scales.x.getPixelForValue(x1), scales.y.getPixelForValue(y1), radius, 0, Math.PI * 2) // Draw a circle
-  // ctx.fillStyle = colors.mediumGreen // Set fill color
-  // ctx.fill() // Fill the circle
-  // ctx.lineWidth = 3
-  // ctx.strokeStyle = 'white' // Set border color
-  // ctx.stroke() // Draw the border
-  // Draw circular point at the start of the first line
 }
 
 export { drawLineWithCircularPoint, getColorByRange }
