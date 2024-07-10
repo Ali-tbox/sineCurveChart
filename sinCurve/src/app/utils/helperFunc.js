@@ -87,7 +87,7 @@ function drawLineWithCircularPoint(ctx, scales, startPoint, endPoint, color, ann
 
   // Draw the slanted line as the background
   ctx.beginPath()
-  const gap = 3
+  const gap = Math.max(8, Math.min(15, 250 / lineDistance))
   const rectX = scales.x.getPixelForValue(x1 - offsetX)
   const labelWidth = scales.x.getPixelForValue(x2 - offsetX) - scales.x.getPixelForValue(x1 - offsetX)
   const rectY = scales.y.getPixelForValue(y1 + offsetY)
