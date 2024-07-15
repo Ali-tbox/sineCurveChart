@@ -183,10 +183,14 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
       </Box>
       <Box display={'flex'} gap={'8px'} mt='8px'>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
-          <Box w='7px' h='7px' borderRadius={'full'} bg={colors.purple}></Box>
-          <Text fontFamily={'Noto Sans'} fontSize={'9px'} color={colors.textcolor}>
-            {moment(date).format('DD MMM YYYY')}
-          </Text>
+          {baseline && (
+            <>
+              <Box w='7px' h='7px' borderRadius={'full'} bg={colors.purple}></Box>
+              <Text fontFamily={'Noto Sans'} fontSize={'9px'} color={colors.textcolor}>
+                {moment(date).format('DD MMM YYYY')}
+              </Text>
+            </>
+          )}
         </Box>
         <Box display={'flex'} alignItems={'center'} gap={'4px'}>
           <Box w='7px' h='7px' bg={colors.faintgreen} borderRadius={'full'}></Box>

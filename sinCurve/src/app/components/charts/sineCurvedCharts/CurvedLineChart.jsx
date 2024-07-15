@@ -13,6 +13,7 @@ function generateZeroArray(length) {
 function CurvedLineChart({ baseline, color, type = 'front', selectedStrideItem, selectedItem, straightData, rightData, leftData, data }) {
   const updatedData = data?.map(item => item?.stride)
   const baselineUpdatedData = baseline?.map(item => item?.stride)
+  console.log('addddddddddddd', baseline)
 
   // const allLeft = selectedItem === 'All data' || selectedItem === 'Left circle' ? leftData?.map(item => item?.stride) : []
   // const allRigth = selectedItem === 'All data' || selectedItem === 'Right circle' ? rightData?.map(item => item?.stride) : []
@@ -30,7 +31,7 @@ function CurvedLineChart({ baseline, color, type = 'front', selectedStrideItem, 
   const datasets = updatedData?.map((data, index) => ({
     label: `Dataset ${index + 1}`,
     data: data,
-    borderColor: medianObject?.stride === data ? colors.purple : 'rgba(45, 156, 219, 0.5)',
+    borderColor: medianObject?.stride === data ? (baseline === undefined ? colors.faintgreen : colors.purple) : 'rgba(45, 156, 219, 0.5)',
     lineTension: 0.4,
     borderCurve: 0.5,
     borderWidth: medianObject?.stride === data ? 3 : 1,
