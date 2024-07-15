@@ -97,7 +97,7 @@ function drawLineWithCircularPoint(ctx, scales, startPoint, endPoint, color, ann
 
   const diagonalLength = Math.sqrt(labelWidth ** 2 + maxHeight ** 2)
   const numLines = Math.ceil(diagonalLength / gap)
-  const adjustedGap = diagonalLength / numLines + 5
+  const adjustedGap = diagonalLength / numLines + gap
 
   for (let i = 0; i <= numLines; i++) {
     const startX = rectX - diagonalLength + i * adjustedGap
