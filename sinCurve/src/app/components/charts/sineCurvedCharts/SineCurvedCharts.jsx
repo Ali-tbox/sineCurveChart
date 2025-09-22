@@ -6,7 +6,7 @@ import Icon from '../../form/Icon'
 import assets from '../../../assets/assests'
 // import chartData from '../chartData'
 
-function SineCurvedCharts({ chartData, baseline, date }) {
+function SineCurvedCharts({ showWithersToggle, withersToggleValue, chartData, baseline, date }) {
   // console.log("SineCurvedCh ", chartData?.sineCurve?.rightFore);
   return (
     <Box w='100%'>
@@ -48,6 +48,19 @@ function SineCurvedCharts({ chartData, baseline, date }) {
           <SineCurve color={colors.lightMustard} baseline={baseline?.sineCurve?.straighthind} chartData={chartData} date={date} data={chartData?.sineCurve?.straighthind} type='hind' />
         )}
       </Box>
+      {withersToggleValue && (
+        <Box display={'flex'} gap={'29px'}>
+          {chartData?.sineCurve?.leftWithers?.length > 0 && (
+            <SineCurve color={colors.lightMediumBlue} baseline={baseline?.sineCurve?.leftWithers} chartData={chartData} date={date} data={chartData?.sineCurve?.leftWithers} type='withers' />
+          )}
+          {chartData?.sineCurve?.rightWithers?.length > 0 && (
+            <SineCurve color={colors.lightPurple} baseline={baseline?.sineCurve?.rightWithers} chartData={chartData} date={date} data={chartData?.sineCurve?.rightWithers} type='withers' />
+          )}
+          {chartData?.sineCurve?.straightWithers?.length > 0 && (
+            <SineCurve color={colors.lightMustard} baseline={baseline?.sineCurve?.straightWithers} chartData={chartData} date={date} data={chartData?.sineCurve?.straightWithers} type='withers' />
+          )}
+        </Box>
+      )}
     </Box>
   )
 }

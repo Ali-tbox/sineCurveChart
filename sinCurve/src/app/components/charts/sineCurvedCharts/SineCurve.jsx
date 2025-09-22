@@ -57,6 +57,23 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
         return {} // Default color if the number is out of specified ranges
       }
     }
+    if (type === 'withers') {
+      if (number >= 0 && number <= 5) {
+        return { name: 'Normal symmetry', color: colors.mediumGreen }
+      } else if (number >= 6 && number <= 13) {
+        return { name: 'Mild asymmetry', color: colors.darkGreen }
+      } else if (number >= 14 && number <= 21) {
+        return { name: 'Mild to moderate asymmetry', color: colors.lightYellow }
+      } else if (number >= 22 && number <= 29) {
+        return { name: 'Moderate asymmetry', color: colors.paleYellow }
+      } else if (number >= 30 && number <= 37) {
+        return { name: 'Moderate to severe asymmetry', color: colors.mediumRed }
+      } else if (number >= 38) {
+        return { name: 'Severe asymmetry', color: colors.mehron }
+      } else {
+        return {} // Default color if the number is out of specified ranges
+      }
+    }
   }
 
   const items = ['All data', 'Left circle', 'Right circle', 'Straight line']
@@ -109,6 +126,20 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
         setLabels(getAnnotations(chartData?.sineCurve?.straighthind))
       }
     }
+    if (type === 'withers') {
+      if (item === 'All data') {
+        setLabels([...getAnnotations(chartData?.sineCurve?.leftWithers), ...getAnnotations(chartData?.sineCurve?.rightWithers), ...getAnnotations(chartData?.sineCurve?.straightWithers)])
+      }
+      if (item === 'Left circle') {
+        setLabels(getAnnotations(chartData?.sineCurve?.leftWithers))
+      }
+      if (item === 'Right circle') {
+        setLabels(getAnnotations(chartData?.sineCurve?.rightWithers))
+      }
+      if (item === 'Straight line') {
+        setLabels(getAnnotations(chartData?.sineCurve?.straightWithers))
+      }
+    }
   }
 
   const handleStrideClick = item => {
@@ -131,6 +162,9 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
     }
     if (type === 'hind') {
       setLabels([...getAnnotations(chartData?.sineCurve?.leftHind), ...getAnnotations(chartData?.sineCurve?.rightHind), ...getAnnotations(chartData?.sineCurve?.straighthind)])
+    }
+    if (type === 'withers') {
+      setLabels([...getAnnotations(chartData?.sineCurve?.leftWithers), ...getAnnotations(chartData?.sineCurve?.rightWithers), ...getAnnotations(chartData?.sineCurve?.straightWithers)])
     }
     setSelectedItem(chartData?.confidence?.length <= 2 && isOnlyStraight ? 'Straight line' : menuItems?.sort(customSort)[0])
   }, [chartData])
@@ -156,9 +190,13 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
         </Box>
       )}
       <Box h={'fit-content'} display={'flex'} gap='6px'>
-        <Icon imageHeight={type === 'front' ? '6px' : '7.5px'} imageWidth={'8px'} image={type === 'front' ? assets.icons.trottingHorse : assets.icons.trottingHorse1} />
+        <Icon
+          imageHeight={type === 'front' ? '6px' : '7.5px'}
+          imageWidth={'8px'}
+          image={type === 'front' ? assets.icons.trottingHorse : type === 'hind' ? assets.icons.trottingHorse1 : assets.icons.trottingHorse3}
+        />
         <Text lineHeight={'normal'} fontFamily={'Nunito'} fontWeight={700} fontSize={'8px'} color={colors.textcolor}>
-          {type === 'front' ? 'Front' : 'Hind'}
+          {type === 'front' ? 'Front' : type === 'hind' ? 'Hind' : 'Withers'}
         </Text>
       </Box>
       {/* <Box mt='16px' gap='20px' display={'flex'}>

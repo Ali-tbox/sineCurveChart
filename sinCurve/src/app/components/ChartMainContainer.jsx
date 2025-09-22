@@ -19,7 +19,8 @@ function ChartMainContainer() {
   const [dataFromIOS, setDataFromIOS] = useState('')
   const [dateFromIOS, setDateFromIOS] = useState('')
   const [BaselineDataFromIOS, setBaselineDataFromIOS] = useState('')
-
+  const [withersToggleValue, setWithersToggleValue] = useState(false)
+  const [showWithersToggle, setShowWithersToggle] = useState(false)
   useEffect(() => {
     // Adding event for IOS app
     onClickHandler('Sine curve loaded')
@@ -31,6 +32,21 @@ function ChartMainContainer() {
   const iosEventHandler = useCallback(
     e => {
       console.log('Received data from IOS : ' + e.detail.data)
+      let parsedData = e.detail.data
+      if (typeof e.detail.data === 'string') {
+        try {
+          parsedData = JSON.parse(e.detail.data)
+        } catch (error) {
+          console.error('Error parsing data:', error)
+        }
+      }
+      const isNewDataFormat = parsedData && 'isWitherData' in parsedData
+      if (isNewDataFormat) {
+        setShowWithersToggle(parsedData.isWitherData)
+      } else {
+        setShowWithersToggle(false)
+      }
+      setWithersToggleValue(isNewDataFormat === true ? e.detail.withersToggle : false)
       setDataFromIOS(e.detail.data)
       setDateFromIOS(e.detail.date)
       setBaselineDataFromIOS(e.detail.baselineData)
@@ -64,7 +80,14 @@ function ChartMainContainer() {
 
   return (
     <Box w={'100%'} display={'flex'} flexDir={'column'} justifyContent={'center'} alignItems={'center'} overflow={'hidden'}>
-      <SineCurvedCharts baseline={BaselineDataFromIOS} date={dateFromIOS} chartData={dataFromIOS} handleItemClick={onClickHandler} />
+      <SineCurvedCharts
+        showWithersToggle={showWithersToggle}
+        withersToggleValue={withersToggleValue}
+        baseline={BaselineDataFromIOS}
+        date={dateFromIOS}
+        chartData={chartData}
+        handleItemClick={onClickHandler}
+      />
     </Box>
   )
 }
