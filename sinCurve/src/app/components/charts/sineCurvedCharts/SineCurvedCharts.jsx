@@ -37,17 +37,6 @@ function SineCurvedCharts({ showWithersToggle, withersToggleValue, chartData, ba
           />
         )}
       </Box>
-      <Box display={'flex'} gap={'29px'}>
-        {chartData?.sineCurve?.leftHind?.length > 0 && (
-          <SineCurve color={colors.lightMediumBlue} baseline={baseline?.sineCurve?.leftHind} chartData={chartData} date={date} data={chartData?.sineCurve?.leftHind} type='hind' />
-        )}
-        {chartData?.sineCurve?.rightHind?.length > 0 && (
-          <SineCurve color={colors.lightPurple} baseline={baseline?.sineCurve?.rightHind} chartData={chartData} date={date} data={chartData?.sineCurve?.rightHind} type='hind' />
-        )}
-        {chartData?.sineCurve?.straighthind?.length > 0 && (
-          <SineCurve color={colors.lightMustard} baseline={baseline?.sineCurve?.straighthind} chartData={chartData} date={date} data={chartData?.sineCurve?.straighthind} type='hind' />
-        )}
-      </Box>
       {withersToggleValue && (
         <Box display={'flex'} gap={'29px'}>
           {chartData?.sineCurve?.leftWithers?.length > 0 && (
@@ -61,6 +50,17 @@ function SineCurvedCharts({ showWithersToggle, withersToggleValue, chartData, ba
           )}
         </Box>
       )}
+      <Box display={'flex'} gap={'29px'}>
+        {chartData?.sineCurve?.leftHind?.length > 0 && (
+          <SineCurve color={colors.lightMediumBlue} baseline={baseline?.sineCurve?.leftHind} chartData={chartData} date={date} data={chartData?.sineCurve?.leftHind} type='hind' />
+        )}
+        {chartData?.sineCurve?.rightHind?.length > 0 && (
+          <SineCurve color={colors.lightPurple} baseline={baseline?.sineCurve?.rightHind} chartData={chartData} date={date} data={chartData?.sineCurve?.rightHind} type='hind' />
+        )}
+        {chartData?.sineCurve?.straighthind?.length > 0 && (
+          <SineCurve color={colors.lightMustard} baseline={baseline?.sineCurve?.straighthind} chartData={chartData} date={date} data={chartData?.sineCurve?.straighthind} type='hind' />
+        )}
+      </Box>
     </Box>
   )
 }
