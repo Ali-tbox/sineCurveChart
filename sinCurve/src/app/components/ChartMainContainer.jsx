@@ -85,7 +85,7 @@ function ChartMainContainer() {
         withersToggleValue={withersToggleValue}
         baseline={BaselineDataFromIOS}
         date={dateFromIOS}
-        chartData={chartData}
+        chartData={dataFromIOS}
         handleItemClick={onClickHandler}
       />
     </Box>
