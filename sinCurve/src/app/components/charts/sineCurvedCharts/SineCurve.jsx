@@ -41,34 +41,34 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
       }
     }
     if (type === 'hind') {
-      if (number >= 0 && number <= 5) {
+      if (number >= 0 && number <= 6) {
         return { name: 'Normal symmetry', color: colors.mediumGreen }
-      } else if (number >= 6 && number <= 13) {
+      } else if (number > 6 && number <= 14) {
         return { name: 'Mild asymmetry', color: colors.darkGreen }
-      } else if (number >= 14 && number <= 21) {
+      } else if (number > 14 && number <= 22) {
         return { name: 'Mild to moderate asymmetry', color: colors.lightYellow }
-      } else if (number >= 22 && number <= 29) {
+      } else if (number > 22 && number <= 30) {
         return { name: 'Moderate asymmetry', color: colors.paleYellow }
-      } else if (number >= 30 && number <= 37) {
+      } else if (number > 30 && number <= 38) {
         return { name: 'Moderate to severe asymmetry', color: colors.mediumRed }
-      } else if (number >= 38) {
+      } else if (number > 38) {
         return { name: 'Severe asymmetry', color: colors.mehron }
       } else {
         return {} // Default color if the number is out of specified ranges
       }
     }
     if (type === 'withers') {
-      if (number >= 0 && number <= 5) {
+      if (number >= 0 && number <= 6) {
         return { name: 'Normal symmetry', color: colors.mediumGreen }
-      } else if (number >= 6 && number <= 13) {
+      } else if (number > 6 && number <= 14) {
         return { name: 'Mild asymmetry', color: colors.darkGreen }
-      } else if (number >= 14 && number <= 21) {
+      } else if (number > 14 && number <= 22) {
         return { name: 'Mild to moderate asymmetry', color: colors.lightYellow }
-      } else if (number >= 22 && number <= 29) {
+      } else if (number > 22 && number <= 30) {
         return { name: 'Moderate asymmetry', color: colors.paleYellow }
-      } else if (number >= 30 && number <= 37) {
+      } else if (number > 30 && number <= 38) {
         return { name: 'Moderate to severe asymmetry', color: colors.mediumRed }
-      } else if (number >= 38) {
+      } else if (number > 38) {
         return { name: 'Severe asymmetry', color: colors.mehron }
       } else {
         return {} // Default color if the number is out of specified ranges
