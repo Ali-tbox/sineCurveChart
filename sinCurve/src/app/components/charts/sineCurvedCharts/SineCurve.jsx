@@ -84,7 +84,7 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
   const menuItems = chartData?.confidence?.map(item => badgeValue[item.trottype])
   const customSort = (a, b) => {
     // Define the desired order
-    const order = ['All data', 'Left circle', 'Right circle']
+    const order = ['All data', 'Left circle', 'Right circle', 'Straight line']
     // Find the indices of elements in the order array
     const indexA = order.indexOf(a)
     const indexB = order.indexOf(b)
@@ -216,7 +216,7 @@ function SineCurve({ date, color, circle = 'Left circle', chartData, baseline, d
               Impact
             </Text>
           </Box>
-          <CurvedLineChart baseline={baseline} color={color} selectedItem={selectedItem} selectedStrideItem={selectedStrideItem} data={data} />
+          <CurvedLineChart type={type} baseline={baseline} color={color} selectedItem={selectedItem} selectedStrideItem={selectedStrideItem} data={data} />
         </Box>
       </Box>
       <Box display={'flex'} gap={'8px'} mt='8px'>

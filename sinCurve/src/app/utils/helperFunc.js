@@ -35,6 +35,23 @@ function getColorByRange(type, number) {
       return 'black' // Default color if the number is out of specified ranges
     }
   }
+  if (type === 'withers') {
+    if (number >= 0 && number <= 6) {
+      return colors.mediumGreen
+    } else if (number > 6 && number <= 14) {
+      return colors.darkGreen
+    } else if (number > 14 && number <= 22) {
+      return colors.lightYellow
+    } else if (number > 22 && number <= 30) {
+      return colors.paleYellow
+    } else if (number > 30 && number <= 38) {
+      return colors.mediumRed
+    } else if (number > 38) {
+      return colors.mehron
+    } else {
+      return 'black' // Default color if the number is out of specified ranges
+    }
+  }
 }
 
 function drawLineWithCircularPoint(ctx, scales, startPoint, endPoint, color, annotation, type) {
